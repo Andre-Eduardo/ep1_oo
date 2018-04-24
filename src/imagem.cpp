@@ -8,6 +8,7 @@ Imagem::Imagem(){
 }
 Imagem::~Imagem(){
 
+ //delete vetorImagem; //  libera espaço na memoria que alocava a imagem
 }
 void Imagem::setAltura(int altura){
   this->altura = altura;
@@ -21,14 +22,6 @@ void Imagem::setLargura(int largura){
 }
 
 
-void Imagem::setInicioImagem(int inicioImagem){
-  this->inicioImagem = inicioImagem;
-}
-
-int Imagem::getInicioImagem(){
-  return inicioImagem;
-}
-
 int Imagem::getLargura(){
   return largura;
 }
@@ -40,8 +33,37 @@ int Imagem::getEscala(){
   return escala;
 }
 
+void Imagem::setInicioImagem_int(){
+  this->inicioImagem_int = inicioImagem_int;
+}
+int Imagem::getInicioImagem_int(int inicioImagem_int){
+  return inicioImagem_int;
+}
+
+void Imagem::setDimensaoImagem(int dimensaoImagem){
+  this->dimensaoImagem = dimensaoImagem;
+}
+int Imagem::getDimensaoImagem(){
+  return dimensaoImagem;
+}
+
 void Imagem::setTipo(string tipo){
   this->tipo = tipo;
+}
+
+void Imagem::SetPixel(char pixel){
+  this->pixel = pixel;
+}
+
+char Imagem::getPixel(){
+  return pixel;
+}
+
+void Imagem::setInicioCifra(string inicioCifra){
+  this->inicioCifra = inicioCifra;
+}
+string Imagem::getInicioCifra(){
+  return inicioCifra;
 }
 
 
@@ -56,10 +78,22 @@ string Imagem::getCaminho(){
   return caminho;
 }
 
+void Imagem::setMensagemcriptografada(string mensagemCriptografada){
+
+  this->mensagemCriptografada = mensagemCriptografada;
+}
+string Imagem::getMensagemCriptografada(){
+
+  return mensagemCriptografada;
+}
+
+//  ==== Metodos ====
+
 void Imagem::abrirImagem(){
-  cout << "Digite o caminho da imagem:"<<endl;
+
+  //instruçoes
+  cout << "Digite o caminho da imagem:  ";
   cin>>caminho;
-  setCaminho(caminho);
   IMG.open(caminho.c_str());
   while ( !(IMG.is_open())) {
     cout << "Erro: imagem  nao encontrada, digite novamente:";
@@ -68,24 +102,37 @@ void Imagem::abrirImagem(){
     setCaminho(caminho);
   }
   IMG >> tipo;
-  setTipo(tipo);
-  IMG.close();
+  IMG.close(); // fecha a imagem.
 
 }
+
 int Imagem::converteParaInt(string generica){
-int numero;
-numero  = atoi(generica.c_str());
-return numero;
+// variavel local
+  int numero;
+// instruçoes
+  numero  = atoi(generica.c_str());
+  return numero;
 }
 
 char* Imagem::alocaImagem(){
-
-  char pixel=0;
-  int dimensaoImagem = altura * largura *3;
-  char * vetorImagem = new char[dimensaoImagem];
+  // instruçoes
+   dimensaoImagem = altura * largura *3;
+  vetorImagem = new char[dimensaoImagem];
   for (int i = 0; i < dimensaoImagem; i++) {
     IMG.get(pixel);
-  vetorImagem[i] = pixel;
+    vetorImagem[i] = pixel;
+  }
+  return vetorImagem;
 }
-return vetorImagem;
+
+string Imagem::estrairChar(){
+  string inCifra; // variavel local
+
+  //instruçoes
+  for (int i = 0; i < inicioCifra.size(); i++) {
+    if (inicioCifra[i] != '#') {
+    inCifra+=inicioCifra[i];
+    }
+  }
+  return inCifra;
 }

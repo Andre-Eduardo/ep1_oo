@@ -7,7 +7,8 @@ PGM::PGM() {
   //construtor
 }
 PGM::PGM(string caminho){
-  IMG.open(caminho.c_str());
+  IMG.open(caminho.c_str()); // abre imagem
+    // leitura do cabeçalho da imagem.
   IMG >> tipo;
   IMG >> inicioCifra>> tamanhoMensagem >> numCifra ;
   IMG >> altura >> largura;
@@ -15,46 +16,12 @@ PGM::PGM(string caminho){
   cout << inicioCifra.c_str() << " " << tamanhoMensagem << " " <<numCifra << endl;
   cout << altura << " " <<largura << endl;
   cout << escala <<endl;
-  int num = converteParaInt(estrairChar());
-  cout << converteParaInt(estrairChar()) <<endl;
-  char pixel;
-  int dimensaoImagem = altura * largura;
-  char * vetorImagem = new char[dimensaoImagem];
-  for (int i = 0; i < dimensaoImagem; i++) {
-  IMG.get(pixel);
-  vetorImagem[i] = pixel;
-}
-int contador=1;
-	bitExtraido=0;
-	byteExtraido=0;
-
-do
-	{
-		bitExtraido= vetorImagem[(num+1)+contador] & 0x01;
-
-		if(contador%8!=0)
-		{
-			byteExtraido = (byteExtraido<<1) | bitExtraido;
-		}
-
-
-		else
-		{
-			byteExtraido = byteExtraido | bitExtraido;
-			cout<<byteExtraido;
-			byteExtraido=0;
-		}
-
-		contador++;
-	}while(contador < tamanhoMensagem);
-cout << " " << '\n';
-
-  }
-
-PGM::~PGM(){
+  inicioImagem_int = converteParaInt(estrairChar());
 
 }
 
+PGM::~PGM(){}
+  // ==== Get / Set ====
 void PGM::setTamanhoMensagem(int tamanhoMensagem){
   this->tamanhoMensagem = tamanhoMensagem;
 }
@@ -77,6 +44,9 @@ int PGM::getNumCifra(){
   return numCifra;
 
 }
+
+//  ==== Metodos ====
+
 string PGM::estrairChar(){
   string inCifra;
   for (int i = 0; i < inicioCifra.size(); i++) {
@@ -87,4 +57,14 @@ string PGM::estrairChar(){
 
 }
 return inCifra;
+}
+char* PGM::alocaImagem(){
+  //instruçoes
+  dimensaoImagem = altura * largura;
+  char * vetorImagem = new char[dimensaoImagem];
+  for (int i = 0; i < dimensaoImagem; i++) {
+  IMG.get(pixel);
+  vetorImagem[i] = pixel;
+}
+return vetorImagem;
 }
