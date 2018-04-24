@@ -7,7 +7,8 @@ using namespace std;
 
 class PGM : public Imagem{
 
-  int numCifra, tamanhoMensagem;
+  int numCifra;
+  int tamanhoMensagem;
   string inicioCifra;
   char *vetorPGM;
   char bitExtraido;
@@ -21,7 +22,7 @@ public:
     PGM(string caminho);
     ~PGM();// Destrutor
 
-//Get / Set
+  // ==== Get / Set ====
 void setTamanhoMensagem(int tamanhoMensagem);
 int  getTamanhoMensagem();
 
@@ -30,8 +31,9 @@ string getInicioCifra();
 
 void setNumCifra( int numCifra);
 int getNumCifra();
+//  ==== Metodos ====
 string estrairChar();
-
+char* alocaImagem(); // Sobrescrita do metodo herdado da classe imagem.
 
 };
 #endif

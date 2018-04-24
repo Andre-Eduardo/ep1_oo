@@ -8,34 +8,30 @@ using namespace std;
 
 class PPM : public Imagem{
 
-private:
-  int tamanhoMensagem,i;
-  string chave;
-  string inicioCifra;
-  char*vetorPPM;
+  private:
+    int tamanhoMensagem;
+    string chave; // chave para descriptografar mensagem
+    char*vetorPPM; //  aponta para onde a imagem esta armazenada
 
 
-public:
-    PPM(); // construtor
-    PPM(string caminho);
-    ~PPM();// Destrutor
-string decifradorPPM();
-//Get / Set
+  public:
+      PPM(); // construtor
+      PPM(string caminho);
+      ~PPM();// Destrutor
+  //===== Get / Set =======
 
-void setTamanhoMensagem(int tamanhoMensagem);
-int  getTamanhoMensagem();
+  void setTamanhoMensagem(int tamanhoMensagem);
+  int  getTamanhoMensagem();
 
-void setInicioCifra(string inicioCifra);
-string getInicioCifra();
+  void setVetorPPM(char* vetorPPM);
+  char* getVetorPPM();
 
-void setPixel( int r ,int g, int b );
-struct Pixel getPixel();
-
-void setChave(string chave);
-string getChave();
-string estrairChar();
-void pegaMensagem();
-string encoder(string key);
-string decipheredIt(string msg, string encoded);
-};
+  void setChave(string chave);
+  string getChave();
+  //  ==== Metodos ====
+  
+  string decifradorPPM();
+  void pegaMensagem(); // funcao que pega a mensagem escondida na imagem .ppm
+  string decodificador(string msg);
+  };
 #endif
